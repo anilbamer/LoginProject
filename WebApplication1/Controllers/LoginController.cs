@@ -26,5 +26,33 @@ namespace WebApplication1.Controllers
            var response = await _loginService.LoginEntry(login);
             return Ok(response);
         }
+        [HttpDelete]
+        [Route("DeleteUserInfo")]
+        public async Task<IActionResult> Deleteinfo(int id)
+        {
+            var res = await _loginService.Deleteinfo(id);
+            return Ok(res);
+        }
+        [HttpGet]
+        [Route("UserInformations")]
+        public async Task<IActionResult> GetUsersDetails()
+        {
+            var response = await _loginService.GetUsersDetails();
+            return Ok(response);
+        }
+        [HttpPost]
+        [Route("infouser")]
+        public async Task<IActionResult> profile(userInfo userInfo)
+        {
+            var res = await _loginService.profile(userInfo);    
+            return Ok(res);
+        }
+        [HttpGet]
+        [Route("GetDetails")]
+        public async Task<IActionResult> GetThem()
+        {
+            var data = await _loginService.GetThem();
+            return Ok(data);
+        }
     }
 }

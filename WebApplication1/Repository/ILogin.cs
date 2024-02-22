@@ -5,5 +5,10 @@ namespace WebApplication1.Repository
     public interface ILogin
     {
         Task<ServiceResult> LoginEntry(Login login);
+        Task<ServiceResult> Deleteinfo(int id);
+        Task<ServiceResult> GetUsersDetails();
+        Task<ServiceResult> profile(userInfo userInfo);
+
+        Task<ServiceResult> GetThem();
     }
 }

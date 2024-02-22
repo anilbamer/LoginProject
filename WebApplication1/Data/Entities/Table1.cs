@@ -3,15 +3,11 @@ using System.Collections.Generic;
 
 namespace WebApplication1.Data.Entities;
 
-public partial class TableDatainfo
+public partial class Table1
 {
-    public int Id { get; set; }
+    public int UserId { get; set; }
 
     public string? Username { get; set; }
 
     public string? Password { get; set; }
-
-    public string? Name { get; set; }
-
-    public long? PhoneNumber { get; set; }
 }

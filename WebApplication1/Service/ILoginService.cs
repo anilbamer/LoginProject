@@ -4,7 +4,11 @@ namespace WebApplication1.Service
 {
     public interface ILoginService
     {
-        public Task<ServiceResult> LoginEntry(Login login);
+        Task<ServiceResult> LoginEntry(Login login);
+        Task<ServiceResult> Deleteinfo(int id);
+        Task<ServiceResult> GetUsersDetails();
+        Task<ServiceResult> profile(userInfo userInfo);
+        Task<ServiceResult> GetThem();
 
     }
 }
