@@ -15,11 +15,11 @@ public partial class LoginDbContext : DbContext
     {
     }
 
+    public virtual DbSet<DataTable> DataTables { get; set; }
+
     public virtual DbSet<Table1> Table1s { get; set; }
 
     public virtual DbSet<Table2> Table2s { get; set; }
-
-    public virtual DbSet<Table3> Table3s { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
@@ -27,6 +27,26 @@ public partial class LoginDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<DataTable>(entity =>
+        {
+            entity.ToTable("dataTable");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Email)
+                .HasMaxLength(10)
+                .IsFixedLength()
+                .HasColumnName("email");
+            entity.Property(e => e.Firstname)
+                .HasMaxLength(10)
+                .IsFixedLength()
+                .HasColumnName("firstname");
+            entity.Property(e => e.Lastname)
+                .HasMaxLength(10)
+                .IsFixedLength()
+                .HasColumnName("lastname");
+            entity.Property(e => e.Phonenumber).HasColumnName("phonenumber");
+        });
+
         modelBuilder.Entity<Table1>(entity =>
         {
             entity.HasKey(e => e.UserId);
@@ -68,28 +88,6 @@ public partial class LoginDbContext : DbContext
             entity.HasOne(d => d.User).WithMany()
                 .HasForeignKey(d => d.UserId)
                 .HasConstraintName("FK_Table2_Table1");
-        });
-
-        modelBuilder.Entity<Table3>(entity =>
-        {
-            entity.ToTable("Table_3");
-
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
-            entity.Property(e => e.Email)
-                .HasMaxLength(10)
-                .IsFixedLength()
-                .HasColumnName("email");
-            entity.Property(e => e.Firstname)
-                .HasMaxLength(10)
-                .IsFixedLength()
-                .HasColumnName("firstname");
-            entity.Property(e => e.Lastname)
-                .HasMaxLength(10)
-                .IsFixedLength()
-                .HasColumnName("lastname");
-            entity.Property(e => e.Phonenumber).HasColumnName("phonenumber");
         });
 
         OnModelCreatingPartial(modelBuilder);

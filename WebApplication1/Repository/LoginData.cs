@@ -5,6 +5,7 @@ using WebApplication1.Data.Entities;
 using WebApplication1.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 
 namespace WebApplication1.Repository
@@ -24,10 +25,10 @@ namespace WebApplication1.Repository
         {
             try
             {
-                var userToDelete = await _context.Table3s.FirstOrDefaultAsync(u => u.Id == id);
+                var userToDelete = await _context.DataTables.FirstOrDefaultAsync(u => u.Id == id);
                 if (userToDelete != null)
                 {
-                    _context.Table3s.Remove(userToDelete);
+                    _context.DataTables.Remove(userToDelete);
                     await _context.SaveChangesAsync();
 
                     return new ServiceResult
@@ -102,7 +103,7 @@ namespace WebApplication1.Repository
         {
             try
             {
-                List<Table3> users = await _context.Table3s.ToListAsync();
+                List<DataTable> users = await _context.DataTables.ToListAsync();
 
                 if (users != null && users.Any())
                 {
@@ -141,15 +142,15 @@ namespace WebApplication1.Repository
    {
             try
             {
-                var data = new Table3
+                var data = new DataTable
                 {
-                    Id = login.id,
                     Firstname = login.firstName,
                     Lastname = login.lastName,
                     Email = login.email,
                     Phonenumber = login.phonenumber,
+                    Id = login.id,
                 };
-                _context.Table3s.Add(data);
+                _context.DataTables.Add(data);
                 await _context.SaveChangesAsync();
                 return new ServiceResult
                 {
