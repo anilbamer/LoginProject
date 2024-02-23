@@ -69,6 +69,11 @@ namespace WebApplication1.Repository
 
                 if (users != null && users.Any())
                 {
+                    foreach (var user in users)
+                    {
+                        user.Username = user.Username.Trim();
+                        user.Password = user.Password.Trim();
+                    }
                     return new ServiceResult
                     {
                         Message = "Users retrieved successfully",
